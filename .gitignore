@@ -1,6 +1,5 @@
-female/*
-male/*
-ages/*
-imdb_crop/*
-wiki_crop/*
+input/imdb_crop/*
+input/wiki_crop/*
+output/*
+__pycache__/
 !*.gitkeep
