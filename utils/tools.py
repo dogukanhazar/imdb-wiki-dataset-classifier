@@ -101,8 +101,8 @@ def get_img_info(input_info_dict, i):
         elif int(gender) == 1:
             gender_str = "male"
 
-    if 'n' not in str(faceScore):  # n as in Inf; if true, implies that there isn't a face in the image
-        if 'a' in str(secFaceScore):  # a as in NaN; if true, implies that no second face was found
+    if 'n' not in str(faceScore):  # n as in Inf => if true, implies that there isn't a face in the image
+        if 'a' in str(secFaceScore):  # a as in NaN => if true, implies that no second face was found
             if age >= 0 and gender_str is not None:
                 impath = os.path.join(input_info_dict["input_path"], path)
 
@@ -146,12 +146,12 @@ def save_img_age(img_info_dict, i, width=224, height=224):
             main_path = get_main_path()
             age_male_dir_path = os.path.join(main_path, "output", "age_male")
             age_female_dir_path = os.path.join(main_path, "output", "age_female")
-            create_dir(age_male_dir_path) # if not exist male folder    then create male folder
-            create_dir(age_female_dir_path) # if not exist female   folder then create female folder
+            create_dir(age_male_dir_path) # if not exist male folder then create male folder
+            create_dir(age_female_dir_path) # if not exist female folder then create female folder
             age_male_dir_subpath = os.path.join(age_male_dir_path, str(img_info_dict["age"]))
             age_female_dir_subpath = os.path.join(age_female_dir_path, str(img_info_dict["age"]))
-            create_dir(age_male_dir_subpath) # if not exist male    folder then create male folder
-            create_dir(age_female_dir_subpath) # if not exist female    folder then create female folder
+            create_dir(age_male_dir_subpath) # if not exist male folder then create male folder
+            create_dir(age_female_dir_subpath) # if not exist female folder then create female folder
             image_name, resized_image = pre_for_img_age (img_info_dict, i, width, height)
 
             if img_info_dict["gender"] == "male":
@@ -179,8 +179,8 @@ def save_img_gender(img_info_dict, i, width=224, height=224):
             main_path = get_main_path()
             male_dir_path = os.path.join(main_path, "output", "male")
             female_dir_path = os.path.join(main_path, "output",     "female")
-            create_dir(male_dir_path) # if not exist male folder then   create male folder
-            create_dir(female_dir_path) # if not exist female folder    then create female folder
+            create_dir(male_dir_path) # if not exist male folder then create male folder
+            create_dir(female_dir_path) # if not exist female folder then create female folder
             image_name, resized_image = pre_for_img_gender  (img_info_dict, i, width, height)
 
             if img_info_dict["gender"] == "male":
@@ -203,8 +203,3 @@ def cleaning():
         if len(subfolders) == 0 and len(files) == 0:
             os.rmdir(root)
             print("\n[info]: deleted empty folder => {}".format(root))
-    # for folder in folders:
-    #     # folder example: ('FOLDER/3', [], ['file'])
-    #     if not folder[2]:
-    #         os.rmdir(folder[0])
-    #         print("\n[info]: deleted empty folder => {}".format(folder[0]))
