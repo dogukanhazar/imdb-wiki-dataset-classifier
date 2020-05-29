@@ -1,3 +1,12 @@
+######## imdb-wiki-dataset-classifier #########
+#
+# Author: Doğukan HAZAR
+# Date: 29/05/2020
+# Description: 
+# This program classifies the imdb-wiki face dataset using Python.
+#
+# github link:
+# https://github.com/dogukanhazar/imdb-wiki-dataset-classifier
 from utils import tools
 from tqdm import tqdm
 
