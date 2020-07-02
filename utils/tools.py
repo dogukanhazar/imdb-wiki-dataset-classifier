@@ -11,6 +11,8 @@ import os
 import cv2
 import scipy.io
 import argparse
+import urllib.request
+import tarfile
 
 
 def argparsefunc():
@@ -24,6 +26,7 @@ def argparsefunc():
     parser.add_argument("-w", "--wiki", help= "add arg if you want classify wiki dataset", action= "store_true", default= False)
     parser.add_argument("-a", "--age", help= "add arg if you want classify dataset using age", action= "store_true", default= False)
     parser.add_argument("-g", "--gender", help= "add arg if you want classify dataset using gender", action= "store_true", default= False)
+    parser.add_argument("-d", "--download", help= "add arg if you want auto download dataset", action= "store_true", default= False)
     parser.add_argument("-n", "--number", help="enter number to end classification", type=check_positive, default=0)
     args = parser.parse_args()
     return args
@@ -34,6 +37,44 @@ def get_main_path():
     split_path = cwd_path.rsplit(os.sep, 1)
     main_path = split_path[0]
     return main_path
+
+
+def is_down_dataset():
+    is_down = False
+    main_path = get_main_path()
+    input_path = os.path.join(main_path, "input")
+
+    for root, subfolders, files in os.walk(input_path):
+        for file in files:
+            file_extension = os.path.splitext(file)[1]
+            file_extension = file_extension.lower()
+            if file_extension == ".jpeg" or file_extension == ".jpg" or file_extension == ".png":
+                is_down = True
+    return is_down
+
+
+def move_dataset(filename):
+    print("\n[info]: moving {} dataset...".format(filename))
+    main_path = get_main_path()
+    input_path = os.path.join(main_path, "input")
+    filenamext = "{}_crop.tar".format(filename)
+    file_path = os.path.join(main_path, filenamext)
+    tar_file = tarfile.open(file_path)
+    tar_file.extractall(input_path)
+    tar_file.close()
+    print("\n[info]: cleaning {} dataset...".format(filename))
+    os.remove(file_path)
+
+
+def download_dataset(url, filename):
+    if not is_down_dataset():
+        print("\n[info]: downloading {} dataset...".format(filename))
+        filenamext = "{}_crop.tar".format(filename)
+        urllib.request.urlretrieve(url, filenamext)
+        urllib.request.urlcleanup()
+        move_dataset(filename)
+    else:
+        print("\n[info]: {} dataset downloaded!".format(filename))
 
 
 def get_input_info(keyword):

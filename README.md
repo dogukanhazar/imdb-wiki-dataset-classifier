@@ -20,7 +20,8 @@ pip install -r requirements.txt
 
 ### Dataset
 
-Bu adresten [imdb](https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_crop.tar)_(7 GB)_ ve bu adresten [wiki](https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/wiki_crop.tar)_(1 GB)_ datasetlerini indirip her birini `input` dizini altında ki ilgili dizinlere atınız.
+terminal komutuna `-d` ya da `--download` parametresi eklenerek çalıştırılırsa, dataset otomatik indirilir ve gerekli dizine atılır veya
+bu adresten [imdb](https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_crop.tar)_(7 GB)_ ve bu adresten [wiki](https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/wiki_crop.tar)_(1 GB)_ datasetlerini indirip her birini `input` dizini altında ki ilgili dizinlere atınız.
 
 ### Terminal Komutları
 
@@ -28,12 +29,13 @@ Depoyu klonladıktan, gerekli kütüphaneleri yükledikten ve dataseti indirdikt
 
 ```bash
 # imdb datasetini age ve gender' a göre 25' e kadar sınıflandırır.
-python3 main.py --imdb --age --gender --number 25
+python3 main.py --imdb --age --gender --download --number 25
 ```
 
 - `--imdb --wiki` => hangi parametre verilirse o dataset sınıflandırılır.
 - `--age` => parametresi verilirse yaşa göre sınıflandırma yapılır. `output` dizini altında `age_female` ve `age_male` dizinlerini yoksa oluşturur. içerisine yaşa göre alt dizinler oluşturarak, datasette ki resim dosyalarını bu dizinlere atar.
 - `--gender` => parametresi verilirse cinsiyete göre sınıflandırma yapılır. `output` dizini altında `female` ve `male` dizinlerini yoksa oluşturur. içerisine cinsiyete göre datasette ki resim dosyalarını atar.
+- `--download` => parametresi verilirse, sınıflandırılmak istenen dataset otomatik indirilir ve `input` dizinine atılır.
 - `--number` => parametresi bir sayı değeri alır ve baştan bu değer kadar resim dosyasını sınıflandırır.
 
 1. `--age` ve `--gender` parametreleri aynı anda verilebilir.
